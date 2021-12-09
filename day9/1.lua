@@ -4,7 +4,7 @@ require('library')
 --local lines = lines_from('example.txt')
 local lines = lines_from('input.txt')
 
-function getLowestNumberInCurrentLine(scanTable, index)
+function GetLowestNumberInCurrentLine(scanTable, index)
     local previousLine = scanTable[index-1] and scanTable[index-1] or nil
     local currentLine = scanTable[index]
     local nextLine = scanTable[index+1] and scanTable[index+1] or nil
@@ -85,7 +85,7 @@ for k,line in pairs(lines) do
     print(scanTable[k-1])
     print(scanTable[k])
     print(scanTable[k+1])
-    local lowestNumbers = getLowestNumberInCurrentLine(scanTable, k)
+    local lowestNumbers = GetLowestNumberInCurrentLine(scanTable, k)
     for _,v in pairs(lowestNumbers) do
         totalRiskLevel = totalRiskLevel + 1 + v
     end
