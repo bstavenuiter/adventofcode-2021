@@ -4,27 +4,23 @@ require('library')
 --local lines = lines_from('example.txt')
 local lines = lines_from('input.txt')
 
+function ExplodeLine(line)
+    local lineTable = {}
+    for word in string.gmatch(line or '', '.') do
+        lineTable[#lineTable + 1] = tonumber(word)
+    end
+    return lineTable
+end
+
 function GetLowestNumberInCurrentLine(scanTable, index)
     local previousLine = scanTable[index-1] and scanTable[index-1] or nil
     local currentLine = scanTable[index]
     local nextLine = scanTable[index+1] and scanTable[index+1] or nil
 
     local lowestNumbers = {}
-    local previousLineTable = {}
-    local currentLineTable = {}
-    local nextLineTable = {}
-
-    for word in string.gmatch(previousLine or '', '.') do
-        previousLineTable[#previousLineTable + 1] = tonumber(word)
-    end
-
-    for word in string.gmatch(nextLine or '', '.') do
-        nextLineTable[#nextLineTable + 1] = tonumber(word)
-    end
-
-    for word in string.gmatch(currentLine, '.') do
-        currentLineTable[#currentLineTable + 1] = tonumber(word)
-    end
+    local nextLineTable = ExplodeLine(nextLine or '')
+    local previousLineTable = ExplodeLine(previousLine or '')
+    local currentLineTable = ExplodeLine(currentLine or '')
 
     for k, word in pairs(currentLineTable) do
         local isLowestNumber = true
