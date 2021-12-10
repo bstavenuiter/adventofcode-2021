@@ -1,6 +1,6 @@
 # Hi
 
-## These are Lua solutions to adventofcode challenges in 2021
+## These are Lua solutions to Advent of Code challenges in 2021
 
 Challenges can be found here: [adventofcode.com](//adventofcode.com/2021). 
 
