@@ -49,6 +49,7 @@ repeat
         print(line)
         grid[k] = ExplodeLine(line)
     end
+    print('Step ' .. step)
     amountLoops = amountLoops - 1
 
     local amountToFlash = 0
@@ -85,12 +86,14 @@ repeat
         end
         thoseWhoAreAboutToFlash = newAboutToFlash
 
-        --os.execute('sleep 0.2')
+        os.execute('sleep 0.01')
         os.execute('clear')
-        print()
         for _,v in ipairs(grid) do
             local line = ''
             for _,u in ipairs(v) do
+                if u == 0 then
+                    u = '\27[31m' .. u .. '\27[0m'
+                end
                 line = line .. u
             end
             print(line)
