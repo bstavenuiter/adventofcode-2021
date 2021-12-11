@@ -1,3 +1,9 @@
-# Hi
+# Advent of Code in Lua
 
-Some days don't have a 2.lua, which means day1 also includes the solution, maybe via a boolean
+These are Lua solutions to Advent of Code (AOC) challenges in 2021
+
+Challenges can be found here: [adventofcode.com](//adventofcode.com/2021). 
+
+Some days don't have a 2.lua, which means 1.lua also includes the solution, maybe via a boolean.
+
+Try out adventofcode! 
