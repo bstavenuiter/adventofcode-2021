@@ -17,27 +17,15 @@ for _,line in pairs(lines) do
     table.insert(grid, ExplodeLine(line))
 end
 
-
 function UpNumber(grid, x, y, newAboutToFlash)
     if grid[y] and grid[y][x] and grid[y][x] ~= 0 then
         grid[y][x] = grid[y][x] + 1
         if grid[y][x] > 9 then
-            if not HasAboutToFlash(newAboutToFlash, {y=y,x=x}) then
-                table.insert(newAboutToFlash, {y=y,x=x})
-            end
+            table.insert(newAboutToFlash, {y=y,x=x})
             grid[y][x] = 0
         end
     end
     return grid, newAboutToFlash
-end
-
-function HasAboutToFlash(aboutToFlash, x, y)
-    for _,v in pairs(aboutToFlash) do
-        if v.x == x and v.y == y then
-            return true
-        end
-    end
-    return false
 end
 
 local step = 1
