@@ -1,14 +1,16 @@
 package.path = package.path .. ";../?.lua"
 require('library')
 
--- local lines = lines_from('example.txt')
+-- enable part 2 here
+local part2 = true
+
+local lines = lines_from('example.txt')
 -- local lines = lines_from('example2.txt')
 -- local lines = lines_from('example3.txt')
-local lines = lines_from('input.txt')
+--local lines = lines_from('input.txt')
 
 function ExplodeLine(line)
-    local lineTable = {}
-    _,_, a,b = string.find(line or '', '(%a+)-(%a+)')
+    local _,_, a,b = string.find(line or '', '(%a+)-(%a+)')
 
     return a,b
 end
@@ -25,10 +27,22 @@ function AddNode(nodes, nodeName, accessToNode)
             isBigCave = string.byte(nodeName) < 97,
             name = nodeName,
             isStart = nodeName == 'start',
-            isEnd = nodeName == 'end'
+            isEnd = nodeName == 'end',
+            amountTimesSeen = 0
         }
     end
     return nodes
+end
+
+function HasSeenTwice(tree)
+    local hasSeenTwice = false
+    for _,v in pairs(tree) do
+        if v.amountTimesSeen > 1 then
+            hasSeenTwice = true
+            break
+        end
+    end
+    return hasSeenTwice
 end
 
 for _,line in ipairs(lines) do
@@ -71,6 +85,7 @@ function FindPaths(tree)
 end
 
 function Traverse(tree, paths, node, path)
+    local hasSeenTwice = HasSeenTwice(tree)
     for _,subNode in pairs(node.accessTo) do
         local pathCopy = path
         local treeCopy = Deepcopy(tree)
@@ -80,8 +95,9 @@ function Traverse(tree, paths, node, path)
             paths[#paths + 1] = pathCopy .. 'end'
         end
 
-        if not subNode.isBigCave and not subNode.seen and not subNode.isEnd and not subNode.isStart then
+        if not subNode.isBigCave and (not subNode.seen or (part2 and not hasSeenTwice)) and not subNode.isEnd and not subNode.isStart then
             treeCopy[subNode.name].seen = true
+            treeCopy[subNode.name].amountTimesSeen = treeCopy[subNode.name].amountTimesSeen + 1
             pathCopy = pathCopy .. subNode.name .. ','
             paths = Traverse(treeCopy, paths, subNode, pathCopy)
         end
