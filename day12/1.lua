@@ -51,7 +51,6 @@ for _,line in ipairs(lines) do
     baseTree = AddNode(baseTree, nodeRight, nodeLeft)
 end
 
-
 function Deepcopy(orig, copies)
     copies = copies or {}
     local orig_type = type(orig)
@@ -110,19 +109,6 @@ function Traverse(tree, paths, node, path)
     end
     return paths
 end
-
-function FindNext(nodes, nodeName, mayBeEnd)
-    mayBeEnd = mayBeEnd or false
-    local node = nodes[nodeName]
-
-    for _,v in pairs(node.accessTo) do
-        if (mayBeEnd and nodes[v].name == 'end') or nodes[v].isBigCave or not nodes[v].seen then
-            return v
-        end
-    end
-    return false
-end
-
 
 local paths = FindPaths(baseTree)
 print()
